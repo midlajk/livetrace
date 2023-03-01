@@ -147,7 +147,6 @@ export  function Consolidted(props) {
     await setstart(items[0])
     await setend(items[items.length-1])
      var dis = await getPathLength(props.data);
-     console.log(dis)
      setdistance(dis/1000) 
 
      props.setLoading(false)
@@ -441,8 +440,8 @@ export  function Halt(props) {
             if(countarray.length>0){
              await setstart(items[countarray[0]])
              await setend(items[countarray[countarray.length-1]])
-            pushdata.starttime = items[countarray[0]].changedtime
-            pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+            pushdata.starttime = items[countarray[0]].Time
+            pushdata.endtime = items[countarray[countarray.length-1]].Time
             timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
             pushdata.timediff=(timediff/60000).toFixed(2)
             setdata(old=>[...old,pushdata])
@@ -460,8 +459,8 @@ export  function Halt(props) {
               if(countarray.length>0){
                await setstart(items[countarray[0]])
                await setend(items[countarray[countarray.length-1]])
-              pushdata.starttime = items[countarray[0]].changedtime
-              pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+              pushdata.starttime = items[countarray[0]].Time
+              pushdata.endtime = items[countarray[countarray.length-1]].Time
               timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
                pushdata.timediff=(timediff/60000).toFixed(2)
               setdata(old=>[...old,pushdata])
@@ -576,8 +575,8 @@ export  function Idiling(props) {
             if(countarray.length>0){
              await setstart(items[countarray[0]])
              await setend(items[countarray[countarray.length-1]])
-            pushdata.starttime = items[countarray[0]].changedtime
-            pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+            pushdata.starttime = items[countarray[0]].Time
+            pushdata.endtime = items[countarray[countarray.length-1]].Time
             timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
             pushdata.timediff=(timediff/60000).toFixed(2)
             setdata(old=>[...old,pushdata])
@@ -600,8 +599,8 @@ export  function Idiling(props) {
               if(countarray.length>0){
                await setstart(items[countarray[0]])
                await setend(items[countarray[countarray.length-1]])
-              pushdata.starttime = items[countarray[0]].changedtime
-              pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+              pushdata.starttime = items[countarray[0]].Time
+              pushdata.endtime = items[countarray[countarray.length-1]].Time
               timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
                pushdata.timediff=(timediff/60000).toFixed(2)
               setdata(old=>[...old,pushdata])
@@ -771,9 +770,10 @@ export  function IgnitionON_off(props) {
    async function offdatasave(){
     await setstart(items[offarray[0]],'off')
     await setend(items[offarray[offarray.length-1]],'off')
-    offpushdata.starttime = items[offarray[0]].changedtime
-    offpushdata.endtime = items[offarray[offarray.length-1]].changedtime
+    offpushdata.starttime = items[offarray[0]].Time
+    offpushdata.endtime = items[offarray[offarray.length-1]].Time
    timediff = new Date(offpushdata.endtime)-new Date(offpushdata.starttime)
+
    offpushdata.timediff=(timediff/60000).toFixed(2)
    offpushdata.igni='Off'
    var dis = await getPathLength(offdata);
@@ -802,8 +802,8 @@ export  function IgnitionON_off(props) {
    async function ondatasave(){
     await setstart(items[onarray[0]],'on')
     await setend(items[onarray[onarray.length-1]],'on')
-    onpushdata.starttime = items[onarray[0]].changedtime
-    onpushdata.endtime = items[onarray[onarray.length-1]].changedtime
+    onpushdata.starttime = items[onarray[0]].Time
+    onpushdata.endtime = items[onarray[onarray.length-1]].Time
     timediff = new Date(onpushdata.endtime)-new Date(onpushdata.starttime)
     onpushdata.timediff=(timediff/60000).toFixed(2)
      onpushdata.igni='On'
@@ -986,8 +986,8 @@ export  function OverSpeed(props) {
 async function datasave(){
   await setstart(items[countarray[0]])
   await setend(items[countarray[countarray.length-1]])
- pushdata.starttime = items[countarray[0]].changedtime
- pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+ pushdata.starttime = items[countarray[0]].Time
+ pushdata.endtime = items[countarray[countarray.length-1]].Time
  timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
   pushdata.timediff=(timediff/60000).toFixed(2)
   const highestMaxScore = Math.max(...speeddata.map(data => data.Speed));
@@ -1142,8 +1142,8 @@ export  function Panic(props) {
 async function datasave(){
   await setstart(items[countarray[0]])
   await setend(items[countarray[countarray.length-1]])
- pushdata.starttime = items[countarray[0]].changedtime
- pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+ pushdata.starttime = items[countarray[0]].Time
+ pushdata.endtime = items[countarray[countarray.length-1]].Time
  timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
   pushdata.timediff=(timediff/60000).toFixed(2)
  var dis = await getPathLength(panicdata);
@@ -1311,8 +1311,8 @@ async function datasave(){
   }
   await setstart(items[countarray[0]])
   await setend(items[countarray[countarray.length-1]])
- pushdata.starttime = items[countarray[0]].changedtime
- pushdata.endtime = items[countarray[countarray.length-1]].changedtime
+ pushdata.starttime = items[countarray[0]].Time
+ pushdata.endtime = items[countarray[countarray.length-1]].Time
  timediff = new Date(pushdata.endtime)-new Date(pushdata.starttime)
   pushdata.timediff=(timediff/60000).toFixed(2)
  var dis = await getPathLength(tripdata);

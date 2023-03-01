@@ -36,6 +36,11 @@ useEffect(() => {
          setServerdate(response.serverdate)
          if(response){
               setLoading(false) 
+         }else{
+          setTimeout(() => {
+
+            props.navigation.navigate('Report')
+          }, 3000);
          }
      
 
