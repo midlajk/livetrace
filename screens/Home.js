@@ -1,5 +1,5 @@
 import React,{useState,useEffect}  from 'react';
-import {  View } from 'react-native';
+import {  View,Alert } from 'react-native';
 import * as api from "../services/auth";
 import Loader from '../Components/Loader';
 import MapButton from '../Components/mapscreen_button';
@@ -31,20 +31,17 @@ useEffect(() => {
   }, [counter]);
    
     async function getdata() {
+      
         let response = await api.fetchdatab(); 
-         setList(response.data)
-         setServerdate(response.serverdate)
-         if(response){
+        
+         if(response.data != 'err'){
               setLoading(false) 
-         }else{
-          setTimeout(() => {
-
-            props.navigation.navigate('Report')
-          }, 3000);
-         }
-     
-
-    }
+              setList(response.data)
+              setServerdate(response.serverdate)
+         }else{  
+                  props.navigation.navigate('Report Problem')
+         };
+        }
 
    
       

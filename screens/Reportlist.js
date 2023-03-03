@@ -40,7 +40,7 @@ export default function TrackScreen({navigation,route}) {
       const newArr = response.HistoryData.map(obj => {
         var lastupdatestring = new Date(obj.Time);
        lastupdatestring.setMinutes(lastupdatestring.getMinutes()+elmts.Gmt_Corr||0);
-       return {...obj, changedtime: lastupdate.toLocaleString()}
+       return {...obj, changedtime: lastupdatestring.toLocaleString()}
       })     
       setList(newArr)
       setLoading(false) 
@@ -80,8 +80,7 @@ export default function TrackScreen({navigation,route}) {
             <ADReport data={list} setLoading={setLoading}/>:
             route.params.name =='Consolidated'?isObjectEmpty(list)?<View></View>:
             <Consolidted data={list} setLoading={setLoading}/>:
-            route.params.name =='Current Summary'?
-            <CurrentSummary setLoading={setLoading} data={list}/>:
+            route.params.name =='Current Summary'?isObjectEmpty(list)?<View></View>:<CurrentSummary setLoading={setLoading} data={list}/>:
             route.params.name =='Halt'?isObjectEmpty(list)?<View></View>:
             <Halt data={list} setLoading={setLoading}/>:
             route.params.name =='Idiling'?isObjectEmpty(list)?<View></View>:

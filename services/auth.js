@@ -82,7 +82,7 @@ export async function fetchdatab(){
          return {data:newArr,serverdate:res.data.server.dateTime}
         
     }catch (e) {
-        throw handler(e);
+        return {data:'err'}
     }
 }
 export async function singledata(imei){

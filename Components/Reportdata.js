@@ -1256,8 +1256,8 @@ export  function Trip(props) {
               idledata.push(items[i])
             }else{
               if(idledata.length>0){
-                 stime = idledata[0].changedtime
-              etime = idledata[idledata.length-1].changedtime
+                 stime = idledata[0].Time
+              etime = idledata[idledata.length-1].Time
               timedif = new Date(stime)-new Date(etime)
               idletime = idletime+(timedif/60000).toFixed(2) 
               idlecount = idlecount + idledata.length
@@ -1302,8 +1302,8 @@ export  function Trip(props) {
    
 async function datasave(){
   if(idledata.length>0){
-    stime = idledata[0].changedtime
-    etime = idledata[idledata.length-1].changedtime
+    stime = idledata[0].Time
+    etime = idledata[idledata.length-1].Time
     timedif = new Date(stime)-new Date(etime)
     idletime = idletime+(timedif/60000).toFixed(2) 
     idlecount = idlecount+idledata.length
