@@ -1255,11 +1255,11 @@ export  function Trip(props) {
             if(items[i].Speed<3){
               idledata.push(items[i])
             }else{
-              if(idledata.length>0){
-                 stime = idledata[0].Time
+              if(idledata.length>0){             
+              stime = idledata[0].Time
               etime = idledata[idledata.length-1].Time
-              timedif = new Date(stime)-new Date(etime)
-              idletime = idletime+(timedif/60000).toFixed(2) 
+              timedif = new Date(etime)-new Date(stime)
+              idletime = parseFloat(idletime.toFixed(2))+parseFloat((timedif/60000).toFixed(2)) 
               idlecount = idlecount + idledata.length
               idledata=[]
               }
@@ -1304,8 +1304,9 @@ async function datasave(){
   if(idledata.length>0){
     stime = idledata[0].Time
     etime = idledata[idledata.length-1].Time
-    timedif = new Date(stime)-new Date(etime)
-    idletime = idletime+(timedif/60000).toFixed(2) 
+    timedif = new Date(etime)-new Date(stime)
+    idletime = parseFloat(idletime.toFixed(2))+parseFloat((timedif/60000).toFixed(2)) 
+    console.log(idletime)
     idlecount = idlecount+idledata.length
 
   }
@@ -1320,7 +1321,7 @@ async function datasave(){
  const highestMaxScore = Math.max(...tripdata.map(data => data.Speed));
  pushdata.highspeed=highestMaxScore
  pushdata.idletime=idletime
- pushdata.idlepercentage=(idlecount/tripdata.length)*100
+ pushdata.idlepercentage=((idlecount/tripdata.length)*100).toFixed(3)
  let sum = tripdata.reduce(function(prev, current) {
   return prev + +current.Speed
 }, 0);
