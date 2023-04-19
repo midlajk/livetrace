@@ -1,4 +1,4 @@
-import React, { useRef,useEffect } from 'react';
+import React, { useRef,useEffect,useState } from 'react';
 import { Dimensions, StyleSheet, Image } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
@@ -20,12 +20,33 @@ const Example = (props) => {
       coordinatefixer();
     }, 1000);
   }, [props.refresh]);
-coordinatefixer = () => {
+  const coordinatefixer = () => {
   mapView.current.fitToCoordinates(props.data, {
     edgePadding: { top: 50, right: 100, bottom: 50, left: 10 },
     animated: true,
   });
 }
+const [region, setRegion] = useState(null);
+
+const handleRegionChangeComplete = (newRegion) => {
+  setRegion(newRegion);
+}
+useEffect(() => {
+  if (region && region.contains && region.contains({latitude:props.data[props.i].latitude,longitude:props.data[props.i].longitude})) {
+  } else if(props.i>1) {
+    const newRegion = {
+      latitude: props.data[props.i].latitude,
+      longitude: props.data[props.i].longitude,
+      latitudeDelta: region.latitudeDelta,
+      longitudeDelta: region.longitudeDelta,
+    };
+    
+    mapView.current.animateToRegion(newRegion, 500);
+
+  }else{
+
+  }
+}, [props.i]);
   return (
     <MapView
       initialRegion={{
@@ -34,6 +55,8 @@ coordinatefixer = () => {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       }}
+      onRegionChangeComplete={handleRegionChangeComplete}
+
       style={StyleSheet.absoluteFill}
       ref={mapView}
     >

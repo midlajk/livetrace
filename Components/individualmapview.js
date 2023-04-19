@@ -4,19 +4,40 @@
 // Import React and Component
 import React,{useState,useRef,useEffect,createRef} from 'react';
 import {StyleSheet, View, TouchableHighlight,Text} from 'react-native';
-import Markericon from './markericon';
+import MarkerIcon from './markericon';
 import MapView, { PROVIDER_GOOGLE, LatLng, Marker,AnimatedRegion } from 'react-native-maps';
 import  b from "../configuration/Datahandler";
 
 const Mapview = (props) => {
     const {list,navigation, ...attributes} = props;
-      const mapRef = useRef();
-      const [maptype, setMaptype] = useState('standard');
+    const mapView = useRef(null);
+    const [maptype, setMaptype] = useState('standard');
       useEffect(() => {
         setMaptype(b.getmaptype())
 
       }, []);
-      mapRef.current={latitude:list[0].Lat,longitude:list[0].Lon}
+      const [region, setRegion] = useState({latitude: list[0].Lat,
+        longitude: list[0].Lon,
+        latitudeDelta: .01,
+        longitudeDelta: .01});
+        const handleRegionChangeComplete = (newRegion) => {
+          setRegion(newRegion);
+        }
+      useEffect(() => {
+        if (region && region.contains && region.contains({latitude:list[0],Lat:list[0].Lon})) {
+        } else {
+
+          const newRegion = {
+            latitude: list[0].Lat,
+            longitude: list[0].Lon,
+            latitudeDelta: region.latitudeDelta,
+            longitudeDelta: region.longitudeDelta,
+          };
+          
+          mapView.current.animateToRegion(newRegion, 1000);
+      
+        }
+      }, [list[0]]);
   return (
     <View style={styles.container}>
     <MapView
@@ -28,9 +49,12 @@ const Mapview = (props) => {
       initialRegion={{
         latitude: list[0].Lat,
         longitude: list[0].Lon,
-        latitudeDelta: .09,
-        longitudeDelta: .09,
+        latitudeDelta: .01,
+        longitudeDelta: .01,
       }}
+      onRegionChangeComplete={handleRegionChangeComplete}
+      ref={mapView} 
+
     >
   
       <Marker.Animated
@@ -38,18 +62,18 @@ const Mapview = (props) => {
        latitude: list[0].Lat,
        longitude: list[0].Lon,
       }}
-       onpress
       rotation={parseFloat(list[0].Course)}
       title={list[0].Reg_No+" , "+list[0].V_Type}
       description="Tap to track live"
-      ref={mapRef.current}
+      ref={mapView.current}
+        anchor={{x:0.5,y:0.5}}
 
       onCalloutPress={() => {
                     
         navigation.navigate('Individual Map',{ vehicle:list[0].Reg_No,imei:list[0].imei});
     }}>
          
-        <Markericon vehicle={list[0].V_Type} ignition={list[0].Igni} speed={list[0].Speed}  />
+        <MarkerIcon vehicle={list[0].V_Type} ignition={list[0].Igni} speed={list[0].Speed}  />
                
            </Marker.Animated>
 
