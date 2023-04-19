@@ -5,13 +5,15 @@
 import React,{useState,useRef,useEffect,createRef} from 'react';
 import {StyleSheet, View, TouchableHighlight,Text} from 'react-native';
 import MarkerIcon from './markericon';
-import MapView, { PROVIDER_GOOGLE, LatLng, Marker,AnimatedRegion } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, LatLng, Marker,AnimatedRegion,Polyline } from 'react-native-maps';
 import  b from "../configuration/Datahandler";
 
 const Mapview = (props) => {
     const {list,navigation, ...attributes} = props;
     const mapView = useRef(null);
     const [maptype, setMaptype] = useState('standard');
+    const [polyline, setpoliline] = useState([]);
+
       useEffect(() => {
         setMaptype(b.getmaptype())
 
@@ -24,7 +26,10 @@ const Mapview = (props) => {
           setRegion(newRegion);
         }
       useEffect(() => {
-        if (region && region.contains && region.contains({latitude:list[0],Lat:list[0].Lon})) {
+        lats={latitude:list[0].Lat,longitude:list[0].Lon}
+        setpoliline(old=>[...old,lats])
+        console.log(polyline)
+        if (region && region.contains && region.contains({latitude:list[0].Lat,longitude:list[0].Lon})) {
         } else {
 
           const newRegion = {
@@ -76,7 +81,19 @@ const Mapview = (props) => {
         <MarkerIcon vehicle={list[0].V_Type} ignition={list[0].Igni} speed={list[0].Speed}  />
                
            </Marker.Animated>
-
+           <Polyline
+        strokeColor="#000"
+        coordinates={polyline}
+        strokeColors={[
+          '#7F0000',
+          '#00000000',
+          '#B24112',
+          '#E5845C',
+          '#238C23',
+          '#7F0000',
+        ]}
+        strokeWidth={2}
+      />
     </MapView>
   </View> 
             
