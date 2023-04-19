@@ -28,8 +28,8 @@ const Mapview = (props) => {
       initialRegion={{
         latitude: list[0].Lat,
         longitude: list[0].Lon,
-        latitudeDelta: .01,
-        longitudeDelta: .01,
+        latitudeDelta: .09,
+        longitudeDelta: .09,
       }}
     >
   

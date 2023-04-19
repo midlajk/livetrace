@@ -16,6 +16,8 @@ export default function Tracking({navigation,route}) {
   const [vehicle, setvehicle] = useState([]);
   const [userdata, setUserdata] = useState({});
   const [counter, setCounter] = useState(0);
+  const [refresh, setRefresh] = useState(0);
+
   var running=[]
   var idle=[]
   var halt=[]
@@ -87,7 +89,7 @@ export default function Tracking({navigation,route}) {
 
 
 
-   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible}/>
+   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} setRefresh={setRefresh} refresh={refresh}/>
 
 {buttonVisible?<MapButton screen='Tracking Vehicle sub' navigation={navigation} list={list}  serverdate={serverdate} sub={route.params.name} />:<View></View>}
 

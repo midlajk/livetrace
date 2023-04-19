@@ -16,6 +16,7 @@ export default function Tracking({navigation}) {
   const [userdata, setUserdata] = useState({});
   const [counter, setCounter] = useState(0);
   var trackingVehicle = [];
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     setLoading(true) 
@@ -54,7 +55,7 @@ export default function Tracking({navigation}) {
                      <Loader loading={loading} navigation={navigation} />
                      {trackingVehicle.length>0&&trackingVehicle.length<2?<IndividualMap list={trackingVehicle} navigation={navigation} />:<Mapview list={trackingVehicle} navigation={navigation} />}
 
-   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible}/>
+   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} setRefresh={setRefresh} refresh={refresh}/>
 
 {buttonVisible?<MapButton screen='Tracking Vehicle' navigation={navigation} list={trackingVehicle}  serverdate={serverdate} />:<View></View>}
 

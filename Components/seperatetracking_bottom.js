@@ -126,12 +126,24 @@ const Icons = (props) => {
   <View style={{flexDirection:'row',justifyContent:'space-around',width:'100%',padding:5}}>
         <TouchableOpacity onPress={()=> {setOpen(true); seclicker('from')}}> 
           <Text style={{color:'#fff',textDecorationLine: 'underline',fontSize:12}} adjustsFontSizeToFit={true}>
-                       From : {clicker?from.toLocaleString():'Choose date'}
+                       From : {clicker?from.toLocaleString('en-US', {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour:'numeric',
+  minute:'numeric'
+}):'Choose date'}
                       </Text > 
         </TouchableOpacity>
         <TouchableOpacity onPress={()=> {setOpen(true); seclicker('To')}}> 
           <Text style={{color:'#fff',textDecorationLine: 'underline',fontSize:12}} adjustsFontSizeToFit={true}>
-                       To : {clicker?to.toLocaleString():'Choose date'}
+                       To : {clicker?to.toLocaleString('en-US', {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour:'numeric',
+  minute:'numeric'
+}):'Choose date'}
                       </Text >
                        
         </TouchableOpacity>
@@ -155,13 +167,10 @@ const Icons = (props) => {
                 }
              
               }else{
-                if(date>new Date()){
-                  setOpen(false)
-                  setTo(new Date())
-                }else{
+                
                      setOpen(false)
                      setTo(date)
-                }
+                
              
               }
               

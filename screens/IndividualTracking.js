@@ -30,6 +30,7 @@ export default function Tracking({navigation,route}) {
   const [userdata, setUserdata] = useState({});
   const [imei, setimei] = useState('');
   const [lasttracked, selasttracked] = useState('');
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     setLoading(true) 
@@ -75,7 +76,7 @@ export default function Tracking({navigation,route}) {
                   
 
                      {list.length>0?<Mapview list={list} navigation={navigation} />:<View></View>}
-                     <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} />
+                     <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} setRefresh={setRefresh} refresh={refresh}/>
 
                      {buttonVisible&&list.length>0?<BotomButton correction={route.params.correction} setPicker={setPicker} time={lasttracked} speed={speed} status={status} navigation={navigation} address={address} vnumber={vnumber} imei={imei} />:<View></View>}
     

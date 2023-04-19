@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/Feather';
 
 const App = (props) => {
-    const {navigation,getdata,setButtonVisible,buttonVisible, ...attributes} = props;
+    const {navigation,getdata,setButtonVisible,buttonVisible,setRefresh,refresh, ...attributes} = props;
   return (
     <View style={styles.topviewcontainer}>
                   <TouchableOpacity
@@ -23,7 +23,9 @@ const App = (props) => {
                  </TouchableOpacity>
                  <TouchableOpacity
                   style={styles.button}
-                  onPress={()=>{getdata()}}
+                  onPress={()=>{
+                    setRefresh(refresh+1)
+                    getdata()}}
                 > 
                 
                     <FontAwesome5

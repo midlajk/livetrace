@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler'
@@ -14,7 +14,10 @@ import IndividualMap from './screens/IndividualTracking';
 import Report from './screens/Report';
 import Historymap from './screens/Historymapbasic';
 import Reportlist from './screens/Reportlist';
-
+import Ionicons from 'react-native-vector-icons/Feather';
+import {
+  TouchableOpacity
+} from 'react-native';
 function HomeTabs() {
   return (
    
@@ -25,6 +28,8 @@ function HomeTabs() {
 const RootStack = createStackNavigator();
 
 function App() {
+  const [headercount, setHeadercounter] = useState(0);
+
   return (
     
       <NavigationContainer>
@@ -96,12 +101,29 @@ function App() {
           <RootStack.Screen
             name="Vehicle Seperate List"
             component={SeperateList}
-            options={({ route }) => ({ title: route.params.name })}
+            options={({ route,navigation }) => ({ title: route.params.name,
+              headerRight: () => (
+               
+            <Ionicons
+            name="refresh-ccw"
+            size={25}
+            color="black"
+            style={{ marginRight: 10 }}
+            onPress={() => {
+              setHeadercounter(headercount+1)
+              navigation.setParams({ headercount: headercount });
+
+            }}
+          />
+              ), 
+              })}
           />
           <RootStack.Screen
             name="Tracking Screen"
             component={TrackScreen}
-            options={({ route }) => ({ title: route.params.name })}
+            options={({ route }) => ({ 
+              title: route.params.name
+            })}
           />
            <RootStack.Screen
             name="History Map"

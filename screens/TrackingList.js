@@ -15,7 +15,7 @@ export default function TrackScreen({navigation,route}) {
    const [serverdate, setServerdate] = useState(new Date());
    const [addressbuffer, setaddressbuffer] = useState({});
    const [livedata, setlivedata] = useState([]);
-
+ 
 async function getdata(){
   setvehiclve([])
   let response = await api.fetchdatab();
@@ -116,11 +116,11 @@ async function setdata(props){
      }
       
 useEffect(() => {
+  setvehiclve([])
   getdata()
-  setTimeout(() => {
-    setCounter(old=>old+1)
-  },b.getUser().int_Refresh*1000);
-}, [counter]);
+  
+}, [route.params]);
+
   const data = route.params.name == 'List of all No data'?b.getVehicle().filter(f => !livedata.find( arr1Obj => arr1Obj.Reg_No === f.Reg_No)&&f.status =='Active'):route.params.name == 'List of All Vehicle'||route.params.name == 'List of all Non-Tracking Vehicle'?[...vehivcle,...b.getVehicle().filter(f => !livedata.find( arr1Obj => arr1Obj.Reg_No === f.Reg_No)&&f.status =='Active')]:vehivcle
   const filteredData = searchText ? data.filter(x =>
     x.Reg_No.toLowerCase().includes(searchText.toLowerCase())
@@ -141,7 +141,7 @@ useEffect(() => {
 
                 <FlatList
                 data={filteredData}
-                renderItem={({ item }) => (
+                renderItem={({ item,index }) => (
 
                 <View style={styles.shadow}>
                <TouchableOpacity style={styles.button}
@@ -156,7 +156,7 @@ useEffect(() => {
             
                     <View style={{flex:1,alignItems:'center'}}>
          
-                      <Text style={{fontSize:16,color:'#000'}}>{item.Reg_No}</Text>
+                      <Text style={{fontSize:16,color:'#000'}}>{index+1} . {item.Reg_No}</Text>
                       <Text style={styles.text}>IMEI : {item.IMEI || item.imei}</Text>
                       {item.Speed==null?<Text style={styles.text}>
                         No Data

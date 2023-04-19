@@ -15,6 +15,8 @@ export default function Tracking({navigation,route}) {
   const [serverdate, setServerdate] = useState('');
   const [userdata, setUserdata] = useState({});
   const [counter, setCounter] = useState(0);
+  const [refresh, setRefresh] = useState(0);
+
   var offline=[];
   var dead=[];
   var nodata=[]
@@ -76,7 +78,7 @@ export default function Tracking({navigation,route}) {
                      
 
 
-   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible}/>
+   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} setRefresh={setRefresh} refresh={refresh}/>
    {buttonVisible?<MapButton screen='NonTracking Vehicle Sub' navigation={navigation} list={list}  serverdate={serverdate} sub={route.params.name} />:<View></View>}
 
     </View>

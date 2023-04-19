@@ -15,6 +15,7 @@ export default function NonTracking({navigation}) {
   const [serverdate, setServerdate] = useState('');
   const [userdata, setUserdata] = useState({});
   const [counter, setCounter] = useState(0);
+  const [refresh, setRefresh] = useState(0);
 
   var nonTrackingVehicle = [];
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function NonTracking({navigation}) {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                      <Loader loading={loading} navigation={navigation} />
                      {nonTrackingVehicle.length>0&&nonTrackingVehicle.length<2?<IndividualMap list={nonTrackingVehicle} navigation={navigation} />:<Mapview list={nonTrackingVehicle} navigation={navigation} />}
-   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible}/>
+   <MapTopButton getdata={getdata} navigation={navigation} setButtonVisible={setButtonVisible} buttonVisible={buttonVisible} setRefresh={setRefresh} refresh={refresh}/>
 
    {buttonVisible?<MapButton screen='Non-Tracking Vehicle' navigation={navigation} list={list}  serverdate={serverdate} />:<View></View>}
     </View>

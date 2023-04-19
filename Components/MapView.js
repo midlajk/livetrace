@@ -5,27 +5,28 @@
 import React,{useState,useRef,useEffect,createRef} from 'react';
 import {StyleSheet, View, TouchableHighlight,Text} from 'react-native';
 import Markericon from './markericon';
-import MapView, { PROVIDER_GOOGLE, LatLng, Marker } from 'react-native-maps';
+import  { PROVIDER_GOOGLE, LatLng, Marker } from 'react-native-maps';
+import MapView from "react-native-map-clustering";
+
 import  b from "../configuration/Datahandler";
 
 const Mapview = (props) => {
-    const {list,navigation, ...attributes} = props;
+    const {list,navigation,refresh, ...attributes} = props;
     const [maptype, setMaptype] = useState('standard');
       const mapRef = createRef();
       useEffect(() => {
         setMaptype(b.getmaptype())
         if (mapRef.current) {
           // list of _id's must same that has been provided to the identifier props of the Marker
-          mapRef.current.fitToSuppliedMarkers(list.map(({ Reg_No }) => Reg_No),{ edgePadding: 
-            {top: 650,
-              right: 100,
-              bottom: 500,
-              left: 100},
-              animated: true,
-      
-          });
+          mapRef.current.animateToRegion({
+            latitude: 11.949263,
+            longitude: 75.609764,
+            latitudeDelta: 2,
+            longitudeDelta: 5,
+          },1000);
+        
         }
-      }, [list]);
+      }, [refresh]);
   return (
     <View style={styles.container}>
     <MapView
@@ -43,6 +44,7 @@ const Mapview = (props) => {
         longitudeDelta: 1,
       }}
     >
+
       {list.map((marker,index)=>{
       return(
       <Marker 
@@ -67,6 +69,7 @@ const Mapview = (props) => {
 
       )
     })}
+    
     </MapView>
   </View> 
             
